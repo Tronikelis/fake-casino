@@ -36,12 +36,27 @@ const useStyles = makeStyles(theme => createStyles({
             marginTop: 10,
         },
     },
+    message: {
+        margin: 5,
+        width: "100%",
+        height: "100%",
+    },
+    text: {
+        wordWrap: "break-word",
+        width: "100%",
+    },
 }));
 
 interface Messages {
     name: string;
     message: string;
 };
+
+// no spam logic
+let canSend = false;
+setInterval(() => {
+    canSend = true;
+}, 1000);
 
 const Chat: FC<ChatProps> = ({ socket }) => {
     const classes = useStyles();
@@ -61,11 +76,19 @@ const Chat: FC<ChatProps> = ({ socket }) => {
     }, []);
 
     useEventListener("keyup", (event: any) => {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13 && canSend) {
             console.log("Enter pressed");
+            // check if not empty
+            if (!input.trim()) return;
 
+            // emit to all
             event.preventDefault();
-            socket.emit("message", { name: "Tronikel", message: input });
+            socket.emit("message", { name: "Tronikel", message: input.trim() });
+
+            // set input to none
+            setInput("");
+            // cant send for 1.5 seconds
+            canSend = false;
         };
     });
 
@@ -79,16 +102,23 @@ const Chat: FC<ChatProps> = ({ socket }) => {
                                 elevation={12}
                                 style={{ margin: 5 }}
                             >
-                                <div style={{ margin: 5 }}>
-                                    <Typography variant="button">
-                                        {value.name}:
-                                    </Typography>
+                                <div className={classes.message}>
+                                    <div className={classes.text}>
+                                        <Typography variant="button">
+                                            {value.name}:
+                                        </Typography>
+                                    </div>
 
                                     <Divider />
 
-                                    <Typography variant="subtitle1">
-                                        {value.message}
-                                    </Typography>
+                                    <div style={{ height: 5 }} />
+
+                                    <div className={classes.text}>
+                                        <Typography variant="subtitle1">
+                                            {value.message}
+                                        </Typography>
+                                    </div>
+
                                 </div>
                             </Paper>
                         )
