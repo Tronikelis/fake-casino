@@ -74,6 +74,8 @@ const Chat: FC<ChatProps> = ({ socket }) => {
             console.log("Enter pressed");
             // check if not empty
             if (!input.trim()) return;
+            // max length is 800
+            if (input.trim().length > 800) return;
 
             // emit to all
             event.preventDefault();
@@ -93,7 +95,7 @@ const Chat: FC<ChatProps> = ({ socket }) => {
                     <div>
                         {messages.map(value => {
                             return (<>
-                                <Paper elevation={10} className={classes.text}>
+                                <Paper elevation={15} className={classes.text}>
                                     <Typography variant="button">
                                         {value.name}:
                                     </Typography>
@@ -116,6 +118,10 @@ const Chat: FC<ChatProps> = ({ socket }) => {
                 variant="outlined"
                 label="Message"
                 value={input}
+
+                maxRows={5}
+                multiline
+
                 onChange={(e) => setInput(e.target.value)}
             />
         </div>
