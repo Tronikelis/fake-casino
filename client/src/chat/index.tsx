@@ -64,6 +64,7 @@ const Chat: FC<ChatProps> = ({ socket }) => {
 
     useEffect(() => {
         socket.on("message", (res: Messages) => {
+            // TODO make div scroll to bottom
             setMessages(prev => {
                 return [...prev, res];
             });
