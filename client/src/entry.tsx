@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => createStyles({
     root: {
         width: "100%",
         height: "100%",
-        flexGrow: 1,
 
         display: "grid",
         placeItems: "center"

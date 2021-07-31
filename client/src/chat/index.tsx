@@ -14,7 +14,7 @@ interface ChatProps {
 const useStyles = makeStyles(theme => createStyles({
     root: {
         width: "100%",
-        height: "100%",
+        height: "80vh",
 
         display: "flex",
         justifyContent: "space-around",
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => createStyles({
     },
     paper: {
         width: "100%",
-        height: "80vh",
+        height: "100%",
     },
     chat: {
         width: "100%",
@@ -31,19 +31,13 @@ const useStyles = makeStyles(theme => createStyles({
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
-
-        "& > div": {
-            marginTop: 10,
-        },
-    },
-    message: {
-        margin: 5,
-        width: "100%",
-        height: "100%",
+        
+        overflow: "auto",
     },
     text: {
-        wordWrap: "break-word",
-        width: "100%",
+        wordBreak: "break-all",
+        padding: 10,
+        margin: 10,
     },
 }));
 
@@ -96,33 +90,23 @@ const Chat: FC<ChatProps> = ({ socket }) => {
         <div className={classes.root}>
             <Paper variant="outlined" className={classes.paper}>
                 <div className={classes.chat}>
-                    {messages.map(value => {
-                        return (
-                            <Paper
-                                elevation={12}
-                                style={{ margin: 5 }}
-                            >
-                                <div className={classes.message}>
-                                    <div className={classes.text}>
-                                        <Typography variant="button">
-                                            {value.name}:
-                                        </Typography>
-                                    </div>
+                    <div>
+                        {messages.map(value => {
+                            return (<>
+                                <Paper elevation={10} className={classes.text}>
+                                    <Typography variant="button">
+                                        {value.name}:
+                                    </Typography>
 
                                     <Divider />
 
-                                    <div style={{ height: 5 }} />
-
-                                    <div className={classes.text}>
-                                        <Typography variant="subtitle1">
-                                            {value.message}
-                                        </Typography>
-                                    </div>
-
-                                </div>
-                            </Paper>
-                        )
-                    })}
+                                    <Typography variant="subtitle1">
+                                        {value.message}
+                                    </Typography>
+                                </Paper>
+                            </>)
+                        })}
+                    </div>
                 </div>
             </Paper>
 
