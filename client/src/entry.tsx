@@ -1,0 +1,52 @@
+import { FC } from "react";
+
+import {
+    createStyles, CssBaseline, Grid, makeStyles
+} from "@material-ui/core";
+import io from "socket.io-client";
+
+// my custom components
+import Roulette from "./roulette";
+import Chat from "./chat";
+
+// initialize socket.io (web-sockets) awesome thing
+const socket = io();
+
+const useStyles = makeStyles(theme => createStyles({
+    root: {
+        width: "100%",
+        height: "100%",
+    },
+}));
+
+const Entry: FC = () => {
+    const classes = useStyles();
+
+    return (<>
+        <CssBaseline>
+            <div className={classes.root}>
+
+                {/** container for everything */}
+                <Grid
+                    container
+                    spacing={4}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    {/** chat portion */}
+                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                        <Chat socket={socket} />
+                    </Grid>
+
+                    {/** roulette portion */}
+                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                        <Roulette socket={socket} />
+                    </Grid>
+                </Grid>
+
+            </div>
+        </CssBaseline>
+    </>);
+};
+export default Entry;
