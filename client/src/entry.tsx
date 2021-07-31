@@ -16,6 +16,14 @@ const useStyles = makeStyles(theme => createStyles({
     root: {
         width: "100%",
         height: "100%",
+        flexGrow: 1,
+
+        display: "grid",
+        placeItems: "center"
+    },
+    grid: {
+        width: "100%",
+        height: "100%",
     },
 }));
 
@@ -25,22 +33,22 @@ const Entry: FC = () => {
     return (<>
         <CssBaseline>
             <div className={classes.root}>
-
                 {/** container for everything */}
                 <Grid
+                    className={classes.grid}
                     container
-                    spacing={4}
+                    spacing={6}
                     direction="row"
-                    justifyContent="center"
+                    justifyContent="space-around"
                     alignItems="center"
                 >
                     {/** chat portion */}
-                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                    <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
                         <Chat socket={socket} />
                     </Grid>
 
                     {/** roulette portion */}
-                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                    <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                         <Roulette socket={socket} />
                     </Grid>
                 </Grid>

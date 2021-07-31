@@ -18,6 +18,12 @@ const useStyles = makeStyles(theme => createStyles({
         justifyContent: "space-around",
         alignItems: "center",
     },
+    wheel: {
+        width: "100%",
+        height: "100%",
+        display: "grid",
+        placeItems: "center",
+    },
 }));
 
 const Roulette: FC<RouletteProps> = ({ socket }) => {
@@ -46,7 +52,7 @@ const Roulette: FC<RouletteProps> = ({ socket }) => {
             spin: boolean;
         };
 
-        // when to spin
+        // wheel state from the server
         socket.on("wheel", (res: Result) => {
             setPrize(res.prize);
             console.log(res.prize);
@@ -54,24 +60,31 @@ const Roulette: FC<RouletteProps> = ({ socket }) => {
             setSpinning(res.spin);
         });
 
+        // synchronize time
         socket.on("time", (res: { timer: number }) => {
             setTime(res.timer);
         });
     }, []);
 
+    const handleStop = () => {
+        setSpinning(false);
+    };
+
     return (<>
         <div className={classes.root}>
-            <Wheel
-                data={data}
-                mustStartSpinning={spinning}
-                onStopSpinning={() => setSpinning(false)}
-                prizeNumber={prize}
+            <div className={classes.wheel}>
+                <Wheel
+                    data={data}
+                    mustStartSpinning={spinning}
+                    onStopSpinning={handleStop}
+                    prizeNumber={prize}
+                    
+                    backgroundColors={['#3e3e3e', '#df3428']}
+                    textColors={['#ffffff']}
+                />
+            </div>
 
-                backgroundColors={['#3e3e3e', '#df3428']}
-                textColors={['#ffffff']}
-            />
-
-            <Typography align="center" variant="h4">
+            <Typography variant="h4">
                 Spinning in: {20 - time}
             </Typography>
         </div>

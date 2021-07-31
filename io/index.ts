@@ -47,6 +47,6 @@ function Wheel(io: Server) {
 
 function Chat(socket: Socket, io: Server) {
     socket.on("message", message => {
-        io.emit("message", `${socket.id.substr(0, 2)} said ${message}`);
+        io.emit("message", message);
     });
 };
