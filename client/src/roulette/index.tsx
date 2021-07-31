@@ -85,7 +85,7 @@ const Roulette: FC<RouletteProps> = ({ socket }) => {
             </div>
 
             <Typography variant="h4">
-                Spinning in: {20 - time}
+                Spinning in: {30 - time}
             </Typography>
         </div>
     </>);

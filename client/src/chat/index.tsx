@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => createStyles({
         wordBreak: "break-all",
         padding: 10,
         margin: 10,
+        whiteSpace: "pre-line",
     },
 }));
 
@@ -69,8 +70,13 @@ const Chat: FC<ChatProps> = ({ socket }) => {
         });
     }, []);
 
-    useEventListener("keyup", (event: any) => {
-        if (event.keyCode === 13 && canSend) {
+    useEventListener("keydown", (event: any) => {
+        console.log(event);
+        
+        // don't emit if shift key is being pressed or cant send
+        if (event.shiftKey || !canSend) return;
+
+        if (event.keyCode === 13) {
             console.log("Enter pressed");
             // check if not empty
             if (!input.trim()) return;
@@ -79,7 +85,11 @@ const Chat: FC<ChatProps> = ({ socket }) => {
 
             // emit to all
             event.preventDefault();
-            socket.emit("message", { name: "Tronikel", message: input.trim() });
+            socket.emit(
+                "message", {
+                    name: "Tronikel", message: input.replace(/[\r\n]+/g, "\n").trim(),
+                },
+            );
 
             // set input to none
             setInput("");

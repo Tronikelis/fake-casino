@@ -7,11 +7,14 @@ interface Wheel {
 
 export default function (io: Server) {
 
-    io.on("connection", socket => {
+    io.on("connection", async (socket) => {
         console.log("User connected!");
-
         // chat portion
         Chat(socket, io);
+        
+        // TODO right user side where misc info is
+        // const clients = (await io.sockets.allSockets()).size;
+        // io.emit("users", clients);
     });
 
     // wheel portion
@@ -25,7 +28,7 @@ function Wheel(io: Server) {
         timer++;
 
         // if the timer is 20 then spin the wheel
-        if (timer >= 20) {
+        if (timer >= 30) {
             const info: Wheel = {
                 prize: Math.floor(Math.random() * 10),
                 spin: true,
