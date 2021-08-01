@@ -75,7 +75,9 @@ const Chat: FC<ChatProps> = ({ socket }) => {
 
     // make dic scroll to bottom after messages appear
     useEffect(() => {
-        ref.current?.scrollIntoView({ behavior: "smooth" });
+        ref.current?.scrollIntoView(
+            { behavior: "smooth", block: "end", inline: "nearest" }
+        );
     }, [messages]);
 
     // send message on Enter press
