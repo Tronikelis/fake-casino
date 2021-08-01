@@ -38,7 +38,7 @@ const App: FC<AppProps> = ({ socket }) => {
                 container
                 spacing={1}
                 direction="row"
-                justifyContent="space-around"
+                justifyContent="space-between"
                 alignItems="center"
             >
                 {/** Misc. portion */}

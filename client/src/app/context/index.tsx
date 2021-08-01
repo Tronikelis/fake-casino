@@ -4,6 +4,7 @@ import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
 interface ContextParams {
     context: {
         money: number;
+        previous: "🟢" | "🔴" | "⚫";
     },
     setContext: Dispatch<SetStateAction<ContextParams["context"]>>
 };
@@ -11,7 +12,8 @@ interface ContextParams {
 // create context
 const Context = createContext<ContextParams>({
     context: {
-        money: 1500
+        money: 1500,
+        previous: "⚫",
     },
     setContext: () => {},
 });
@@ -22,6 +24,7 @@ const Provider: FC = ({ children }) => {
 
     const [value, setValue] = useState<ContextParams["context"]>({
         money: 1500,
+        previous: "⚫",
     });
 
     const state: ContextParams = {

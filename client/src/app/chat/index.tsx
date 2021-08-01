@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => createStyles({
         overflow: "auto",
     },
     text: {
-        wordBreak: "break-all",
+        wordBreak: "break-word",
         padding: 10,
         margin: 10,
         whiteSpace: "pre-line",
@@ -121,7 +121,7 @@ const Chat: FC<ChatProps> = ({ socket }) => {
                                         variant="button"
                                         style={{
                                             color: value.name === localStorage.getItem("username")
-                                                ? "#3e3e3e" : "black",
+                                                ? "#DF3428" : "black",
                                         }}
                                     >
                                         {value.name}:

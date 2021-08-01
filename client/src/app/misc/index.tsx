@@ -18,6 +18,11 @@ const useStyles = makeStyles(theme => createStyles({
         width: "80%",
         height: "100%",
         padding: 20,
+
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        flexDirection: "row",
     },
     content: {
         width: "100%",
@@ -40,13 +45,14 @@ interface MiscProps {
     socket: Socket
 };
 
+
 const Misc: FC<MiscProps> = ({ socket }) => {
     const classes = useStyles();
 
     // money (context) state
     const { context } = useContext(Context);
     // destructor
-    const { money } = context;
+    const { money, previous } = context;
     
     // active users state
     const [active, setActive] = useState(0);
@@ -55,21 +61,33 @@ const Misc: FC<MiscProps> = ({ socket }) => {
         // active users
         socket.on("active", (res: { users: number }) => {
             setActive(res.users);
-        })
+        });
+
+        // on wheel spin
     }, []);
+
+    useEffect(() => {
+
+    })
 
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
+                <div>
+                    <Typography variant="button">
+                        Money: {format(Number(money))}
+                    </Typography>
 
-                <Typography variant="button">
-                    Money: {format(Number(money))}
-                </Typography>
+                    <Typography variant="subtitle1">
+                        Users: {active}
+                    </Typography>
+                </div>
 
-                <Typography variant="subtitle1">
-                    Active: {active}
-                </Typography>
-
+                <div>
+                    <Typography>
+                        Last: {previous}
+                    </Typography>
+                </div>
             </Paper>
         </div>
     );

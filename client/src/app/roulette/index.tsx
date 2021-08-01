@@ -1,8 +1,11 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useContext } from "react";
 
 import { createStyles, makeStyles, Typography } from "@material-ui/core";
 import { Wheel } from "react-custom-roulette";
 import { Socket } from "socket.io-client";
+
+// context
+import Context from "../context";
 
 interface RouletteProps {
     socket: Socket
@@ -62,6 +65,10 @@ const Roulette: FC<RouletteProps> = ({ socket }) => {
     const [spinning, setSpinning] = useState(false);
     const [time, setTime] = useState(0);
 
+    // for setting last spin
+    const { setContext } = useContext(Context);
+
+
     useEffect(() => {
         interface Result {
             prize: number;
@@ -83,10 +90,23 @@ const Roulette: FC<RouletteProps> = ({ socket }) => {
 
     // callback when the wheel stops
     const handleStop = () => {
+        // stop the spinning
         setSpinning(false);
 
-        const color = prize % 2 === 0 ? "red" : "black"
-        alert("Prize is -> " + color);
+        // set previous spin
+        if (prize === 0) {
+            setContext(prev => {
+                prev.previous = "🟢";
+                return { ...prev };
+            });
+            return;
+        };
+        
+        const color = prize % 2 === 0 ? "🔴" : "⚫"
+        setContext(prev => {
+            prev.previous = color;
+            return { ...prev };
+        });
     };
 
     return (<>
