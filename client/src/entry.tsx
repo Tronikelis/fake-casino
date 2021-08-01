@@ -14,7 +14,7 @@ const socket = io();
 const Entry: FC = () => {
 
     // is user signed in state
-    const [signedIn, setSignedIn] = useState(true);
+    const [signedIn, setSignedIn] = useState(false);
 
     return (<>
         <CssBaseline>
