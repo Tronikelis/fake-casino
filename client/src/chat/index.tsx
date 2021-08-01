@@ -127,10 +127,10 @@ const Chat: FC<ChatProps> = ({ socket }) => {
                                 </Paper>
                             </>)
                         })}
+                        {/** scroll to this div */}
+                        <div ref={ref} />
                     </div>
 
-                    {/** scroll to this div */}
-                    <div ref={ref} />
                 </div>
             </Paper>
 
