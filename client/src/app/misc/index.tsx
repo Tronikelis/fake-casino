@@ -62,13 +62,8 @@ const Misc: FC<MiscProps> = ({ socket }) => {
         socket.on("active", (res: { users: number }) => {
             setActive(res.users);
         });
-
-        // on wheel spin
     }, []);
 
-    useEffect(() => {
-
-    })
 
     return (
         <div className={classes.root}>
