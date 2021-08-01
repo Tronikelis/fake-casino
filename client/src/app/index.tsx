@@ -43,7 +43,7 @@ const App: FC<AppProps> = ({ socket }) => {
             >
                 {/** Misc. portion */}
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                    <Misc />
+                    <Misc socket={socket} />
                 </Grid>
                 {/** chat portion */}
                 <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>

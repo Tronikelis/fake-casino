@@ -7,16 +7,21 @@ interface Wheel {
 
 export default function (io: Server) {
 
+    // on websocket client connection
     io.on("connection", async (socket) => {
         console.log("User connected!");
         // chat portion
         Chat(socket, io);
         
+        // how many active users route
+        Active(io);
+        socket.on("disconnect", () => {
+            Active(io);
+        });
+        
         // TODO right user side where misc info is
-        // const clients = (await io.sockets.allSockets()).size;
-        // io.emit("users", clients);
     });
-
+    
     // wheel portion
     Wheel(io);
 };
@@ -54,4 +59,12 @@ function Chat(socket: Socket, io: Server) {
         console.log({ message });
         io.emit("message", message);
     });
+};
+
+async function Active(io: Server) {
+    // misc portion
+    const clients = (await io.sockets.allSockets()).size;
+    console.log({ clients });
+
+    io.emit("active", { users: clients });
 };
