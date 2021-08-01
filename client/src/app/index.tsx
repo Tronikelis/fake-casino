@@ -6,6 +6,7 @@ import { Socket } from "socket.io-client";
 // my custom components
 import Roulette from "./roulette";
 import Chat from "./chat";
+import Misc from "./misc";
 
 interface AppProps {
     socket: Socket
@@ -35,11 +36,15 @@ const App: FC<AppProps> = ({ socket }) => {
             <Grid
                 className={classes.grid}
                 container
-                spacing={6}
+                spacing={1}
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
             >
+                {/** Misc. portion */}
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <Misc />
+                </Grid>
                 {/** chat portion */}
                 <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
                     <Chat socket={socket} />
