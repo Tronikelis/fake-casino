@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => createStyles({
 const Roulette: FC<RouletteProps> = ({ socket }) => {
     const classes = useStyles();
 
+    // wheel data
     const data = [
         { option: "0" },
         { option: "1" },
@@ -54,9 +55,8 @@ const Roulette: FC<RouletteProps> = ({ socket }) => {
 
         // wheel state from the server
         socket.on("wheel", (res: Result) => {
+            // set the prize and start spinning
             setPrize(res.prize);
-            console.log(res.prize);
-
             setSpinning(res.spin);
         });
 
@@ -66,6 +66,7 @@ const Roulette: FC<RouletteProps> = ({ socket }) => {
         });
     }, []);
 
+    // callback when the wheel stops
     const handleStop = () => {
         setSpinning(false);
     };
