@@ -1,16 +1,15 @@
 import { FC } from "react";
 
 import { makeStyles, createStyles, Grid } from "@material-ui/core";
-import { Socket } from "socket.io-client";
+import io from "socket.io-client";
 
 // my custom components
 import Roulette from "./roulette";
 import Chat from "./chat";
 import Misc from "./misc";
 
-interface AppProps {
-    socket: Socket
-};
+// initialize socket.io (web-sockets) awesome thing
+const socket = io();
 
 const useStyles = makeStyles(theme => createStyles({
     root: {
@@ -26,7 +25,7 @@ const useStyles = makeStyles(theme => createStyles({
     },
 }));
 
-const App: FC<AppProps> = ({ socket }) => {
+const App: FC = () => {
     const classes = useStyles();
 
     return (<>

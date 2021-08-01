@@ -1,7 +1,6 @@
 import { FC, useState, useEffect, useContext } from "react";
 
 import { CssBaseline } from "@material-ui/core";
-import io from "socket.io-client";
 
 // my custom components
 import Signup from "./signup";
@@ -10,8 +9,7 @@ import App from "./app";
 // misc context
 import Context, { Provider } from "./app/context";
 
-// initialize socket.io (web-sockets) awesome thing
-const socket = io();
+
 
 // main entry for the casino
 const Entry: FC = () => {
@@ -53,7 +51,7 @@ const Entry: FC = () => {
 
                 {!signedIn ?
                     <Signup state={{ signedIn, setSignedIn }} /> :
-                    <App socket={socket} />
+                    <App />
                 }
 
             </Provider>

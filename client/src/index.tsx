@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 import Entry from "./entry";
 
+// dark theme
 import { createTheme, ThemeProvider } from "@material-ui/core";
 const theme = createTheme({
     palette: {
