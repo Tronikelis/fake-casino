@@ -1,58 +1,30 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
-import {
-    createStyles, CssBaseline, Grid, makeStyles
-} from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
 import io from "socket.io-client";
 
 // my custom components
-import Roulette from "./roulette";
-import Chat from "./chat";
+import Signup from "./signup";
+import App from "./app";
 
 // initialize socket.io (web-sockets) awesome thing
 const socket = io();
 
-const useStyles = makeStyles(theme => createStyles({
-    root: {
-        width: "100%",
-        height: "100%",
-
-        display: "grid",
-        placeItems: "center"
-    },
-    grid: {
-        width: "100%",
-        height: "100%",
-    },
-}));
-
+// main entry for the casino
 const Entry: FC = () => {
-    const classes = useStyles();
+
+    // is user signed in state
+    const [signedIn, setSignedIn] = useState(false);
 
     return (<>
         <CssBaseline>
-            <div className={classes.root}>
-                {/** container for everything */}
-                <Grid
-                    className={classes.grid}
-                    container
-                    spacing={6}
-                    direction="row"
-                    justifyContent="space-around"
-                    alignItems="center"
-                >
-                    {/** chat portion */}
-                    <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-                        <Chat socket={socket} />
-                    </Grid>
+            {/** show signup screen if the user hasn't done that yet */}
 
-                    {/** roulette portion */}
-                    <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                        <Roulette socket={socket} />
-                    </Grid>
-                </Grid>
+            {!signedIn ?
+                <Signup state={{ signedIn, setSignedIn }} /> :
+                <App socket={socket} />
+            }
 
-            </div>
         </CssBaseline>
     </>);
 };
