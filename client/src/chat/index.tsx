@@ -98,8 +98,8 @@ const Chat: FC<ChatProps> = ({ socket }) => {
             event.preventDefault();
             socket.emit(
                 "message", {
-                name: "Tronikel", message: input.replace(/[\r\n]+/g, "\n").trim(),
-            },
+                    name: "Tronikel", message: input.replace(/[\r\n]+/g, "\n").trim(),
+                },
             );
 
             // set input to none
