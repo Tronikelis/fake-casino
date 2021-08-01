@@ -1,10 +1,11 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 
 import {
     createStyles, Divider, makeStyles, Paper, TextField, Typography
 } from "@material-ui/core";
 import useEventListener from "@use-it/event-listener";
 import { Socket } from "socket.io-client";
+
 
 
 interface ChatProps {
@@ -58,19 +59,26 @@ const Chat: FC<ChatProps> = ({ socket }) => {
 
     // current input
     const [input, setInput] = useState("");
-
     // current messages
     const [messages, setMessages] = useState<Messages[]>([]);
 
+    // ref for scrolling to bottom
+    const ref = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         socket.on("message", (res: Messages) => {
-            // TODO make div scroll to bottom
             setMessages(prev => {
                 return [...prev, res];
             });
         });
     }, []);
 
+    // make dic scroll to bottom after messages appear
+    useEffect(() => {
+        ref.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
+    // send message on Enter press
     useEventListener("keydown", (event: any) => {
         console.log(event);
         
@@ -120,6 +128,9 @@ const Chat: FC<ChatProps> = ({ socket }) => {
                             </>)
                         })}
                     </div>
+
+                    {/** scroll to this div */}
+                    <div ref={ref} />
                 </div>
             </Paper>
 
