@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => createStyles({
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
-        
+
         overflow: "auto",
     },
     text: {
@@ -73,7 +73,7 @@ const Chat: FC<ChatProps> = ({ socket }) => {
         });
     }, []);
 
-    // make dic scroll to bottom after messages appear
+    // make div scroll to bottom after messages appear
     useEffect(() => {
         ref.current?.scrollIntoView(
             { behavior: "smooth", block: "end", inline: "nearest" }
@@ -83,7 +83,7 @@ const Chat: FC<ChatProps> = ({ socket }) => {
     // send message on Enter press
     useEventListener("keydown", (event: any) => {
         console.log(event);
-        
+
         // don't emit if shift key is being pressed or cant send
         if (event.shiftKey || !canSend) return;
 
@@ -98,8 +98,8 @@ const Chat: FC<ChatProps> = ({ socket }) => {
             event.preventDefault();
             socket.emit(
                 "message", {
-                    name: "Tronikel", message: input.replace(/[\r\n]+/g, "\n").trim(),
-                },
+                name: "Tronikel", message: input.replace(/[\r\n]+/g, "\n").trim(),
+            },
             );
 
             // set input to none
