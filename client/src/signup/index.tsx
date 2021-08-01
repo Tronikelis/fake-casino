@@ -49,7 +49,7 @@ const Signup: FC<SignupProps> = ({ state }) => {
 
         setDisabled(true);
         // set username
-        localStorage.setItem("username", input);
+        localStorage.setItem("username", input.trim());
         // set money
         localStorage.setItem("money", "1500");
 

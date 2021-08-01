@@ -30,7 +30,7 @@ function Wheel(io: Server) {
         // if the timer is 20 then spin the wheel
         if (timer >= 25) {
             const info: Wheel = {
-                prize: Math.floor(Math.random() * 10),
+                prize: Math.round(Math.random() * 14),
                 spin: true,
             };
             console.log({ info });

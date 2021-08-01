@@ -3,10 +3,9 @@ import { FC, useState, useEffect, useRef } from "react";
 import {
     createStyles, Divider, makeStyles, Paper, TextField, Typography
 } from "@material-ui/core";
+
 import useEventListener from "@use-it/event-listener";
 import { Socket } from "socket.io-client";
-
-
 
 interface ChatProps {
     socket: Socket
@@ -98,7 +97,8 @@ const Chat: FC<ChatProps> = ({ socket }) => {
             event.preventDefault();
             socket.emit(
                 "message", {
-                    name: "Tronikel", message: input.replace(/[\r\n]+/g, "\n").trim(),
+                    name: localStorage.getItem("username"),
+                    message: input.replace(/[\r\n]+/g, "\n").trim(),
                 },
             );
 
@@ -117,7 +117,13 @@ const Chat: FC<ChatProps> = ({ socket }) => {
                         {messages.map(value => {
                             return (<>
                                 <Paper elevation={15} className={classes.text}>
-                                    <Typography variant="button">
+                                    <Typography
+                                        variant="button"
+                                        style={{
+                                            color: value.name === localStorage.getItem("username")
+                                                ? "#3e3e3e" : "black",
+                                        }}
+                                    >
                                         {value.name}:
                                     </Typography>
 
