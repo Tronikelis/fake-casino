@@ -33,6 +33,7 @@ function Wheel(io: Server) {
                 prize: Math.floor(Math.random() * 10),
                 spin: true,
             };
+            console.log({ info });
             io.emit("wheel", info);
 
             timer = 0;
@@ -50,6 +51,7 @@ function Wheel(io: Server) {
 
 function Chat(socket: Socket, io: Server) {
     socket.on("message", message => {
+        console.log({ message });
         io.emit("message", message);
     });
 };
