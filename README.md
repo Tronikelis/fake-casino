@@ -1,6 +1,6 @@
 # Tronikel's fake casino
 
-### This is just a quick project I made because I wanted to learn web sockets
+### This is just a quick project that I made because I wanted to learn web sockets
 
 Preview:
 ![preview](https://i.imgur.com/Y6DjaHu.png)
