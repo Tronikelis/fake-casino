@@ -15,5 +15,5 @@ Currently, the money resets to 1500 every time when reloading the app
 
 ## Testing it 
 - ```clone the repo```
-- ```yarn install && cd client && yarn install```
+- ```yarn install && cd client && yarn install && yarn build```
 - ```cd to root and yarn start```
