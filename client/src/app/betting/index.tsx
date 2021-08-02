@@ -141,19 +141,28 @@ const Betting: FC<BettingProps> = ({ socket, state }) => {
                 red: 0,
             });
         };
+
+        if (spinning) setDisabled(true);
     }, [spinning]);
 
-
-
     const handleClick = () => {
-        
+        // cant bet twice
         setDisabled(true);
-
+    
         // adjust money
         const current = context.money;
         // if the user does not have enough then return error
         const adjusted = current - (bets.red + bets.black + bets.green);
-        if (adjusted < 0) return;
+        if (adjusted < 0) {
+            // if not enough money then reset and return
+            setBets({
+                black: 0,
+                green: 0,
+                red: 0,
+            });
+            setDisabled(false);
+            return;
+        };
 
         // set new money and emit the bet
         setContext(prev => {
@@ -200,10 +209,12 @@ const Betting: FC<BettingProps> = ({ socket, state }) => {
 
                             value={bets.black}
                             onChange={(e) => {
+                                if (e.target.value.includes("-")) return;
+                                if (disabled) return;
                                 setBets(prev => {
                                     prev.black = Number(e.target.value);
                                     return { ...prev };
-                                })
+                                });
                             }}
 
                             helperText={`Current: ${bets.black}`}
@@ -233,10 +244,12 @@ const Betting: FC<BettingProps> = ({ socket, state }) => {
                             
                             value={bets.green}
                             onChange={(e) => {
+                                if (e.target.value.includes("-")) return;
+                                if (disabled) return;
                                 setBets(prev => {
                                     prev.green = Number(e.target.value);
                                     return { ...prev };
-                                })
+                                });
                             }}
 
                             helperText={`Current: ${bets.green}`}
@@ -267,10 +280,12 @@ const Betting: FC<BettingProps> = ({ socket, state }) => {
                         
                             value={bets.red}
                             onChange={(e) => {
+                                if (e.target.value.includes("-")) return;
+                                if (disabled) return;
                                 setBets(prev => {
                                     prev.red = Number(e.target.value);
                                     return { ...prev };
-                                })
+                                });
                             }}
 
                             helperText={`Current: ${bets.red}`}

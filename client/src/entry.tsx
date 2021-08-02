@@ -22,7 +22,7 @@ const Entry: FC = () => {
 
     // first time set the money
     useEffect(() => {
-        // set money if empty
+        // set money if empty and update if not
         if (!localStorage.getItem("money")) {
             localStorage.setItem("money", "1500");
 
@@ -31,14 +31,11 @@ const Entry: FC = () => {
 
                 return { ...prev };
             });
-        };
-
-        // cleanup to set money when user leaves
-        return () => {
-            localStorage.setItem(
-                "money",
-                context.money.toString(),
-            );
+        } else {
+            setContext(prev => {
+                prev.money = Number(localStorage.getItem("money") ?? 15);
+                return { ...prev };
+            });
         };
     }, []);
 

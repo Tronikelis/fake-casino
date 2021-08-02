@@ -72,6 +72,7 @@ async function Active(io: Server) {
 
 function Others(socket: Socket ,io: Server) {
     socket.on("others", res => {
+        console.log({ res });
         io.emit("others", res);
     });
 };
