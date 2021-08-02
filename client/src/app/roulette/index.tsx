@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useContext } from "react";
+import { FC, useState, useEffect, useContext, Dispatch, SetStateAction } from "react";
 
 import { createStyles, makeStyles, Typography } from "@material-ui/core";
 import { Wheel } from "react-custom-roulette";
@@ -9,6 +9,13 @@ import Context from "../context";
 
 interface RouletteProps {
     socket: Socket
+    state: {
+        spinning: boolean;
+        setSpinning: Dispatch<SetStateAction<boolean>>
+
+        prize: number;
+        setPrize: Dispatch<SetStateAction<number>>
+    };
 };
 
 const useStyles = makeStyles(theme => createStyles({
@@ -58,11 +65,10 @@ const backgroundColors = [
     "#3e3e3e", "#df3428",
 ];
 
-const Roulette: FC<RouletteProps> = ({ socket }) => {
+const Roulette: FC<RouletteProps> = ({ socket, state }) => {
     const classes = useStyles();
 
-    const [prize, setPrize] = useState(0);
-    const [spinning, setSpinning] = useState(false);
+    const { setSpinning, spinning, prize, setPrize } = state;
     const [time, setTime] = useState(0);
 
     // for setting last spin

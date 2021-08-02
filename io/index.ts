@@ -19,7 +19,8 @@ export default function (io: Server) {
             Active(io);
         });
         
-        // TODO right user side where misc info is
+        // everyone's bets
+        Others(socket, io);
     });
     
     // wheel portion
@@ -67,4 +68,10 @@ async function Active(io: Server) {
     console.log({ clients });
 
     io.emit("active", { users: clients });
+};
+
+function Others(socket: Socket ,io: Server) {
+    socket.on("others", res => {
+        io.emit("others", res);
+    });
 };

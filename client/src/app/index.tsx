@@ -30,14 +30,23 @@ const useStyles = makeStyles(theme => createStyles({
 const App: FC = () => {
     const classes = useStyles();
 
-    // bets context
+    // bets state
     const [bets, setBets] = useState({
         red: 0,
         black: 0,
         green: 0,
     });
 
-    const state: BettingProps["state"] = { bets, setBets };
+    // wheel spinning state
+    const [spinning, setSpinning] = useState(false);
+    // wheel prize state
+    const [prize, setPrize] = useState(0);
+
+    // state to get the bets
+    const bettingState = { bets, setBets };
+    // state to set/get if wheel is spinning
+    const wheel = { spinning, setSpinning, prize, setPrize };
+
 
     return (<>
        {/** enter the casino! */}
@@ -62,11 +71,21 @@ const App: FC = () => {
 
                 {/** roulette portion */}
                 <Grid item lg>
-                    <Roulette socket={socket} />
+                    <Roulette
+                        state={wheel}
+                        socket={socket}
+                    />
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                    <Betting socket={socket} state={state} />
+                    <Betting
+                        socket={socket}
+                        state={{
+                            ...bettingState,
+                            spinning: spinning,
+                            prize: prize,
+                        }}
+                    />
                 </Grid>
             </Grid>
 
