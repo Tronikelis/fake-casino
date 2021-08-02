@@ -12,3 +12,8 @@ Technologies used:
 - Socket io (web-sockets)
 
 Currently, the money resets to 1500 every time when reloading the app
+
+## Testing it 
+- ```clone the repo```
+- ```yarn install && cd client && yarn install```
+- ```cd to root and yarn start```
