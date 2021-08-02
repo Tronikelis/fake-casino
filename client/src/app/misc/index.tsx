@@ -36,10 +36,7 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 // money formatter
-const { format } = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-});
+const { format } = new Intl.NumberFormat();
 
 interface MiscProps {
     socket: Socket
@@ -69,17 +66,25 @@ const Misc: FC<MiscProps> = ({ socket }) => {
         <div className={classes.root}>
             <Paper className={classes.paper}>
                 <div>
-                    <Typography variant="button">
-                        Money: {format(Number(money))}
-                    </Typography>
-
-                    <Typography variant="subtitle1">
-                        Users: {active}
+                    <Typography
+                        variant="subtitle1"
+                        align="center"
+                    >
+                        Users: {active} | {localStorage.getItem("username")}
                     </Typography>
                 </div>
-
                 <div>
-                    <Typography>
+                    <Typography
+                        variant="button"
+                        align="center"
+                    >
+                        Tokens: {format(Number(money))}
+                    </Typography>
+                </div>
+                <div>
+                    <Typography
+                        align="center"
+                    >
                         Last: {previous}
                     </Typography>
                 </div>

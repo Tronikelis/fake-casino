@@ -15,11 +15,11 @@ const useStyles = makeStyles(theme => createStyles({
     root: {
         width: "100%",
         height: "100%",
-
+        
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
-        alignItems: "center",
+        alignItems: "align",
     },
     wheel: {
         width: "100%",
@@ -111,21 +111,25 @@ const Roulette: FC<RouletteProps> = ({ socket }) => {
 
     return (<>
         <div className={classes.root}>
-            <Typography variant="h4" gutterBottom>
-                Spinning in: {25 - time}
-            </Typography>
 
-            <div className={classes.wheel}>
-                <Wheel
-                    data={data}
-                    mustStartSpinning={spinning}
-                    onStopSpinning={handleStop}
-                    prizeNumber={prize}
-                    
-                    backgroundColors={backgroundColors}
-                    textColors={['#ffffff']}
-                />
+            <div>
+                <Typography variant="h4" gutterBottom align="center">
+                    Spinning in: {25 - time}
+                </Typography>
+
+                <div className={classes.wheel}>
+                    <Wheel
+                        data={data}
+                        mustStartSpinning={spinning}
+                        onStopSpinning={handleStop}
+                        prizeNumber={prize}
+                        
+                        backgroundColors={backgroundColors}
+                        textColors={['#ffffff']}
+                    />
+                </div>
             </div>
+            
         </div>
     </>);
 };

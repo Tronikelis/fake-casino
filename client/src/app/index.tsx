@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { makeStyles, createStyles, Grid } from "@material-ui/core";
 import io from "socket.io-client";
@@ -7,6 +7,8 @@ import io from "socket.io-client";
 import Roulette from "./roulette";
 import Chat from "./chat";
 import Misc from "./misc";
+import Betting, { BettingProps } from "./betting";
+
 
 // initialize socket.io (web-sockets) awesome thing
 const socket = io();
@@ -28,6 +30,15 @@ const useStyles = makeStyles(theme => createStyles({
 const App: FC = () => {
     const classes = useStyles();
 
+    // bets context
+    const [bets, setBets] = useState({
+        red: 0,
+        black: 0,
+        green: 0,
+    });
+
+    const state: BettingProps["state"] = { bets, setBets };
+
     return (<>
        {/** enter the casino! */}
         <div className={classes.root}>
@@ -35,10 +46,10 @@ const App: FC = () => {
             <Grid
                 className={classes.grid}
                 container
-                spacing={1}
+                spacing={2}
                 direction="row"
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems="flex-start"
             >
                 {/** Misc. portion */}
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -50,8 +61,12 @@ const App: FC = () => {
                 </Grid>
 
                 {/** roulette portion */}
-                <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                <Grid item lg>
                     <Roulette socket={socket} />
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                    <Betting socket={socket} state={state} />
                 </Grid>
             </Grid>
 
