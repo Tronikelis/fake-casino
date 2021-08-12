@@ -15,6 +15,9 @@ import nocache from "nocache";
 import sockets from "./io";
 import routes from "./routes";
 
+// on port
+const port = process.env.PORT || 3000;
+
 // initiate server modules
 const app = express();
 const server = http.createServer(app);
@@ -47,6 +50,6 @@ sockets(io);
 routes(app, root);
 
 // make the server listen to requests
-server.listen(3000, () => {
-    console.log("Listening on port", 3000);
+server.listen(port, () => {
+    console.log("Listening on port", port);
 });
